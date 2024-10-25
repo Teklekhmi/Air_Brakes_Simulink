@@ -1,14 +1,19 @@
-% Liftoff at t = 0.05 s element 5
-%Launchrod t = 0.29 s
-%Burnout t= 2.309 s
-% Apogeem t = 18.859 s element 412
 load 'Data_Important.mat'
+load 'area_fit.mat'
 F_D = [Times(5:410),DragForceN(5:410)];
 F_T = [Times(5:410),ThrustN(5:410)];
 Masskg = [Times(5:410),Massg(5:410)/1000];
-
-%openExample('arduino/ServoControlExample','supportingFile','arduino_servocontrol_sweep')
+[p,S] = polyfit(angle,area/10^4,4);
+%% No Thrust
+acc = VerticalAccelerationms(72:405);
+acc = [Times(72:405),acc];
+AltitudeAtBurnout = 281.8450;
+F_D_new = DragForceN(72:405);
+Vel = [Times(5:410),VerticalVelocityms(5:410)];
+acl = [Times(5:410),VerticalAccelerationms(5:410)];
 %%
-M_in = [Masskg(:,1), (1/17)*Masskg(:,2)];
-% F_D = F_D./0.225;
-% F_T = F_T./0.225;
+% m = 17;
+% b = 0.33;
+% t = 0:0.01:20;
+% z2 = z1 + m/b*(v1+m*g/b)*(1-e^(-b*t/m))-m*g*t/b;
+% 
